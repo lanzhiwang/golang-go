@@ -17,11 +17,24 @@ import (
 // to create descriptive error messages.
 func ExampleErrorf() {
 	const name, id = "bueller", 17
+	/*
+		func Errorf(format string, a ...any) error
+
+		type any = interface{}
+
+		type error interface {
+			Error() string
+		}
+	*/
 	err := fmt.Errorf("user %q (id %d) not found", name, id)
 	fmt.Println(err.Error())
 
 	// Output: user "bueller" (id 17) not found
 }
+
+/*
+err := fmt.Errorf("user %q (id %d) not found", name, id)
+*/
 
 func ExampleFscanf() {
 	var (
@@ -29,6 +42,16 @@ func ExampleFscanf() {
 		b bool
 		s string
 	)
+	/*
+		func NewReader(s string) *Reader
+		type Reader struct {
+			// contains filtered or unexported fields
+		}
+
+		func Fscanf(r io.Reader, format string, a ...any) (n int, err error)
+		Fscanf scans text read from r, storing successive space-separated values into successive arguments as determined by the format.
+		It returns the number of items successfully parsed. Newlines in the input must match newlines in the format.
+	*/
 	r := strings.NewReader("5 true gophers")
 	n, err := fmt.Fscanf(r, "%d %t %s", &i, &b, &s)
 	if err != nil {
@@ -40,6 +63,11 @@ func ExampleFscanf() {
 	// 5 true gophers
 	// 3
 }
+
+/*
+err := fmt.Errorf("user %q (id %d) not found", name, id)
+n, err := fmt.Fscanf(r, "%d %t %s", &i, &b, &s)
+*/
 
 func ExampleFscanln() {
 	s := `dmr 1771 1.61803398875
@@ -63,9 +91,20 @@ func ExampleFscanln() {
 	// 3: ken, 271828, 3.141590
 }
 
+/*
+err := fmt.Errorf("user %q (id %d) not found", name, id)
+n, err := fmt.Fscanf(r, "%d %t %s", &i, &b, &s)
+n, err := fmt.Fscanln(r, &a, &b, &c)
+*/
+
 func ExampleSscanf() {
 	var name string
 	var age int
+	/*
+		func Sscanf(str string, format string, a ...any) (n int, err error)
+		Sscanf scans the argument string, storing successive space-separated values into successive arguments as determined by the format.
+		It returns the number of items successfully parsed. Newlines in the input must match newlines in the format.
+	*/
 	n, err := fmt.Sscanf("Kim is 22 years old", "%s is %d years old", &name, &age)
 	if err != nil {
 		panic(err)
@@ -76,16 +115,32 @@ func ExampleSscanf() {
 	// 2: Kim, 22
 }
 
+/*
+err := fmt.Errorf("user %q (id %d) not found", name, id)
+n, err := fmt.Fscanf(r, "%d %t %s", &i, &b, &s)
+n, err := fmt.Fscanln(r, &a, &b, &c)
+n, err := fmt.Sscanf("Kim is 22 years old", "%s is %d years old", &name, &age)
+*/
+
 func ExamplePrint() {
 	const name, age = "Kim", 22
 	fmt.Print(name, " is ", age, " years old.\n")
 
 	// It is conventional not to worry about any
 	// error returned by Print.
+	// 按照惯例，不必担心 Print 返回的任何错误。
 
 	// Output:
 	// Kim is 22 years old.
 }
+
+/*
+err := fmt.Errorf("user %q (id %d) not found", name, id)
+n, err := fmt.Fscanf(r, "%d %t %s", &i, &b, &s)
+n, err := fmt.Fscanln(r, &a, &b, &c)
+n, err := fmt.Sscanf("Kim is 22 years old", "%s is %d years old", &name, &age)
+fmt.Print(name, " is ", age, " years old.\n")
+*/
 
 func ExamplePrintln() {
 	const name, age = "Kim", 22
@@ -93,10 +148,20 @@ func ExamplePrintln() {
 
 	// It is conventional not to worry about any
 	// error returned by Println.
+	// 按照惯例，不必担心 Println 返回的任何错误。
 
 	// Output:
 	// Kim is 22 years old.
 }
+
+/*
+err := fmt.Errorf("user %q (id %d) not found", name, id)
+n, err := fmt.Fscanf(r, "%d %t %s", &i, &b, &s)
+n, err := fmt.Fscanln(r, &a, &b, &c)
+n, err := fmt.Sscanf("Kim is 22 years old", "%s is %d years old", &name, &age)
+fmt.Print(name, " is ", age, " years old.\n")
+fmt.Println(name, "is", age, "years old.")
+*/
 
 func ExamplePrintf() {
 	const name, age = "Kim", 22
@@ -109,6 +174,16 @@ func ExamplePrintf() {
 	// Kim is 22 years old.
 }
 
+/*
+err := fmt.Errorf("user %q (id %d) not found", name, id)
+n, err := fmt.Fscanf(r, "%d %t %s", &i, &b, &s)
+n, err := fmt.Fscanln(r, &a, &b, &c)
+n, err := fmt.Sscanf("Kim is 22 years old", "%s is %d years old", &name, &age)
+fmt.Print(name, " is ", age, " years old.\n")
+fmt.Println(name, "is", age, "years old.")
+fmt.Printf("%s is %d years old.\n", name, age)
+*/
+
 func ExampleSprint() {
 	const name, age = "Kim", 22
 	s := fmt.Sprint(name, " is ", age, " years old.\n")
@@ -118,6 +193,17 @@ func ExampleSprint() {
 	// Output:
 	// Kim is 22 years old.
 }
+
+/*
+err := fmt.Errorf("user %q (id %d) not found", name, id)
+n, err := fmt.Fscanf(r, "%d %t %s", &i, &b, &s)
+n, err := fmt.Fscanln(r, &a, &b, &c)
+n, err := fmt.Sscanf("Kim is 22 years old", "%s is %d years old", &name, &age)
+fmt.Print(name, " is ", age, " years old.\n")
+fmt.Println(name, "is", age, "years old.")
+fmt.Printf("%s is %d years old.\n", name, age)
+s := fmt.Sprint(name, " is ", age, " years old.\n")
+*/
 
 func ExampleSprintln() {
 	const name, age = "Kim", 22
@@ -129,6 +215,18 @@ func ExampleSprintln() {
 	// Kim is 22 years old.
 }
 
+/*
+err := fmt.Errorf("user %q (id %d) not found", name, id)
+n, err := fmt.Fscanf(r, "%d %t %s", &i, &b, &s)
+n, err := fmt.Fscanln(r, &a, &b, &c)
+n, err := fmt.Sscanf("Kim is 22 years old", "%s is %d years old", &name, &age)
+fmt.Print(name, " is ", age, " years old.\n")
+fmt.Println(name, "is", age, "years old.")
+fmt.Printf("%s is %d years old.\n", name, age)
+s := fmt.Sprint(name, " is ", age, " years old.\n")
+s := fmt.Sprintln(name, "is", age, "years old.")
+*/
+
 func ExampleSprintf() {
 	const name, age = "Kim", 22
 	s := fmt.Sprintf("%s is %d years old.\n", name, age)
@@ -138,6 +236,19 @@ func ExampleSprintf() {
 	// Output:
 	// Kim is 22 years old.
 }
+
+/*
+err := fmt.Errorf("user %q (id %d) not found", name, id)
+n, err := fmt.Fscanf(r, "%d %t %s", &i, &b, &s)
+n, err := fmt.Fscanln(r, &a, &b, &c)
+n, err := fmt.Sscanf("Kim is 22 years old", "%s is %d years old", &name, &age)
+fmt.Print(name, " is ", age, " years old.\n")
+fmt.Println(name, "is", age, "years old.")
+fmt.Printf("%s is %d years old.\n", name, age)
+s := fmt.Sprint(name, " is ", age, " years old.\n")
+s := fmt.Sprintln(name, "is", age, "years old.")
+s := fmt.Sprintf("%s is %d years old.\n", name, age)
+*/
 
 func ExampleFprint() {
 	const name, age = "Kim", 22
@@ -155,6 +266,20 @@ func ExampleFprint() {
 	// 21 bytes written.
 }
 
+/*
+err := fmt.Errorf("user %q (id %d) not found", name, id)
+n, err := fmt.Fscanf(r, "%d %t %s", &i, &b, &s)
+n, err := fmt.Fscanln(r, &a, &b, &c)
+n, err := fmt.Sscanf("Kim is 22 years old", "%s is %d years old", &name, &age)
+fmt.Print(name, " is ", age, " years old.\n")
+fmt.Println(name, "is", age, "years old.")
+fmt.Printf("%s is %d years old.\n", name, age)
+s := fmt.Sprint(name, " is ", age, " years old.\n")
+s := fmt.Sprintln(name, "is", age, "years old.")
+s := fmt.Sprintf("%s is %d years old.\n", name, age)
+n, err := fmt.Fprint(os.Stdout, name, " is ", age, " years old.\n")
+*/
+
 func ExampleFprintln() {
 	const name, age = "Kim", 22
 	n, err := fmt.Fprintln(os.Stdout, name, "is", age, "years old.")
@@ -171,6 +296,21 @@ func ExampleFprintln() {
 	// 21 bytes written.
 }
 
+/*
+err := fmt.Errorf("user %q (id %d) not found", name, id)
+n, err := fmt.Fscanf(r, "%d %t %s", &i, &b, &s)
+n, err := fmt.Fscanln(r, &a, &b, &c)
+n, err := fmt.Sscanf("Kim is 22 years old", "%s is %d years old", &name, &age)
+fmt.Print(name, " is ", age, " years old.\n")
+fmt.Println(name, "is", age, "years old.")
+fmt.Printf("%s is %d years old.\n", name, age)
+s := fmt.Sprint(name, " is ", age, " years old.\n")
+s := fmt.Sprintln(name, "is", age, "years old.")
+s := fmt.Sprintf("%s is %d years old.\n", name, age)
+n, err := fmt.Fprint(os.Stdout, name, " is ", age, " years old.\n")
+n, err := fmt.Fprintln(os.Stdout, name, "is", age, "years old.")
+*/
+
 func ExampleFprintf() {
 	const name, age = "Kim", 22
 	n, err := fmt.Fprintf(os.Stdout, "%s is %d years old.\n", name, age)
@@ -186,6 +326,27 @@ func ExampleFprintf() {
 	// Kim is 22 years old.
 	// 21 bytes written.
 }
+
+/*
+err := fmt.Errorf("user %q (id %d) not found", name, id)
+
+n, err := fmt.Fscanf(r, "%d %t %s", &i, &b, &s)
+n, err := fmt.Fscanln(r, &a, &b, &c)
+
+n, err := fmt.Sscanf("Kim is 22 years old", "%s is %d years old", &name, &age)
+
+fmt.Print(name, " is ", age, " years old.\n")
+fmt.Printf("%s is %d years old.\n", name, age)
+fmt.Println(name, "is", age, "years old.")
+
+s := fmt.Sprint(name, " is ", age, " years old.\n")
+s := fmt.Sprintf("%s is %d years old.\n", name, age)
+s := fmt.Sprintln(name, "is", age, "years old.")
+
+n, err := fmt.Fprint(os.Stdout, name, " is ", age, " years old.\n")
+n, err := fmt.Fprintf(os.Stdout, "%s is %d years old.\n", name, age)
+n, err := fmt.Fprintln(os.Stdout, name, "is", age, "years old.")
+*/
 
 // Print, Println, and Printf lay out their arguments differently. In this example
 // we can compare their behaviors. Println always adds blanks between the items it
