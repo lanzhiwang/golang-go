@@ -16,6 +16,7 @@ func ExampleLogger() {
 		logger = log.New(&buf, "logger: ", log.Lshortfile)
 	)
 
+	// func (l *Logger) Print(v ...any)
 	logger.Print("Hello, log file!")
 
 	fmt.Print(&buf)
@@ -29,6 +30,7 @@ func ExampleLogger_Output() {
 		logger = log.New(&buf, "INFO: ", log.Lshortfile)
 
 		infof = func(info string) {
+			// func (l *Logger) Output(calldepth int, s string) error
 			logger.Output(2, info)
 		}
 	)

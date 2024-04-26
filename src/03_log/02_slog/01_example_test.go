@@ -32,6 +32,17 @@ func ExampleGroup() {
 		slog.Int("status", http.StatusOK),
 		slog.Duration("duration", time.Second))
 
+	// logger.Info(
+	// 	"finished",
+	// 	slog.Group(
+	// 		"req",
+	// 		slog.String("method", r.Method),
+	// 		slog.String("url", r.URL.String())
+	// 	),
+	// 	slog.Int("status", http.StatusOK),
+	// 	slog.Duration("duration", time.Second)
+	// )
+
 	// Output:
 	// level=INFO msg=finished req.method=GET req.url=localhost status=200 duration=1s
 }
