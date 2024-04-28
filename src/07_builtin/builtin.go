@@ -12,167 +12,29 @@ package builtin
 
 import "cmp"
 
-// bool is the set of boolean values, true and false.
-type bool bool
 
-// true and false are the two untyped boolean values.
-const (
-	true  = 0 == 0 // Untyped bool.
-	false = 0 != 0 // Untyped bool.
-)
 
-// uint8 is the set of all unsigned 8-bit integers.
-// Range: 0 through 255.
-type uint8 uint8
 
-// uint16 is the set of all unsigned 16-bit integers.
-// Range: 0 through 65535.
-type uint16 uint16
 
-// uint32 is the set of all unsigned 32-bit integers.
-// Range: 0 through 4294967295.
-type uint32 uint32
 
-// uint64 is the set of all unsigned 64-bit integers.
-// Range: 0 through 18446744073709551615.
-type uint64 uint64
 
-// int8 is the set of all signed 8-bit integers.
-// Range: -128 through 127.
-type int8 int8
 
-// int16 is the set of all signed 16-bit integers.
-// Range: -32768 through 32767.
-type int16 int16
 
-// int32 is the set of all signed 32-bit integers.
-// Range: -2147483648 through 2147483647.
-type int32 int32
 
-// int64 is the set of all signed 64-bit integers.
-// Range: -9223372036854775808 through 9223372036854775807.
-type int64 int64
 
-// float32 is the set of all IEEE-754 32-bit floating-point numbers.
-type float32 float32
 
-// float64 is the set of all IEEE-754 64-bit floating-point numbers.
-type float64 float64
 
-// complex64 is the set of all complex numbers with float32 real and
-// imaginary parts.
-type complex64 complex64
 
-// complex128 is the set of all complex numbers with float64 real and
-// imaginary parts.
-type complex128 complex128
 
-// string is the set of all strings of 8-bit bytes, conventionally but not
-// necessarily representing UTF-8-encoded text. A string may be empty, but
-// not nil. Values of string type are immutable.
-type string string
 
-// int is a signed integer type that is at least 32 bits in size. It is a
-// distinct type, however, and not an alias for, say, int32.
-type int int
 
-// uint is an unsigned integer type that is at least 32 bits in size. It is a
-// distinct type, however, and not an alias for, say, uint32.
-type uint uint
 
-// uintptr is an integer type that is large enough to hold the bit pattern of
-// any pointer.
-type uintptr uintptr
 
-// byte is an alias for uint8 and is equivalent to uint8 in all ways. It is
-// used, by convention, to distinguish byte values from 8-bit unsigned
-// integer values.
-type byte = uint8
 
-// rune is an alias for int32 and is equivalent to int32 in all ways. It is
-// used, by convention, to distinguish character values from integer values.
-type rune = int32
 
-// any is an alias for interface{} and is equivalent to interface{} in all ways.
-type any = interface{}
 
-// comparable is an interface that is implemented by all comparable types
-// (booleans, numbers, strings, pointers, channels, arrays of comparable types,
-// structs whose fields are all comparable types).
-// The comparable interface may only be used as a type parameter constraint,
-// not as the type of a variable.
-type comparable interface{ comparable }
 
-// iota is a predeclared identifier representing the untyped integer ordinal
-// number of the current const specification in a (usually parenthesized)
-// const declaration. It is zero-indexed.
-const iota = 0 // Untyped int.
 
-// nil is a predeclared identifier representing the zero value for a
-// pointer, channel, func, interface, map, or slice type.
-var nil Type // Type must be a pointer, channel, func, interface, map, or slice type
-
-// Type is here for the purposes of documentation only. It is a stand-in
-// for any Go type, but represents the same type for any given function
-// invocation.
-type Type int
-
-// Type1 is here for the purposes of documentation only. It is a stand-in
-// for any Go type, but represents the same type for any given function
-// invocation.
-type Type1 int
-
-// IntegerType is here for the purposes of documentation only. It is a stand-in
-// for any integer type: int, uint, int8 etc.
-type IntegerType int
-
-// FloatType is here for the purposes of documentation only. It is a stand-in
-// for either float type: float32 or float64.
-type FloatType float32
-
-// ComplexType is here for the purposes of documentation only. It is a
-// stand-in for either complex type: complex64 or complex128.
-type ComplexType complex64
-
-// The append built-in function appends elements to the end of a slice. If
-// it has sufficient capacity, the destination is resliced to accommodate the
-// new elements. If it does not, a new underlying array will be allocated.
-// Append returns the updated slice. It is therefore necessary to store the
-// result of append, often in the variable holding the slice itself:
-//
-//	slice = append(slice, elem1, elem2)
-//	slice = append(slice, anotherSlice...)
-//
-// As a special case, it is legal to append a string to a byte slice, like this:
-//
-//	slice = append([]byte("hello "), "world"...)
-func append(slice []Type, elems ...Type) []Type
-
-// The copy built-in function copies elements from a source slice into a
-// destination slice. (As a special case, it also will copy bytes from a
-// string to a slice of bytes.) The source and destination may overlap. Copy
-// returns the number of elements copied, which will be the minimum of
-// len(src) and len(dst).
-func copy(dst, src []Type) int
-
-// The delete built-in function deletes the element with the specified key
-// (m[key]) from the map. If m is nil or there is no such element, delete
-// is a no-op.
-func delete(m map[Type]Type1, key Type)
-
-// The len built-in function returns the length of v, according to its type:
-//
-//	Array: the number of elements in v.
-//	Pointer to array: the number of elements in *v (even if v is nil).
-//	Slice, or map: the number of elements in v; if v is nil, len(v) is zero.
-//	String: the number of bytes in v.
-//	Channel: the number of elements queued (unread) in the channel buffer;
-//	         if v is nil, len(v) is zero.
-//
-// For some arguments, such as a string literal or a simple array expression, the
-// result can be a constant. See the Go language specification's "Length and
-// capacity" section for details.
-func len(v Type) int
 
 // The cap built-in function returns the capacity of v, according to its type:
 //
