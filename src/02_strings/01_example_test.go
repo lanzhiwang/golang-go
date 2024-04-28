@@ -81,6 +81,9 @@ func ExampleContainsRune() {
 }
 
 func ExampleContainsFunc() {
+	/*
+		type rune = int32
+	*/
 	f := func(r rune) bool {
 		return r == 'a' || r == 'e' || r == 'i' || r == 'o' || r == 'u'
 	}
@@ -155,6 +158,9 @@ func ExampleFields() {
 }
 
 func ExampleFieldsFunc() {
+	/*
+		type rune = int32
+	*/
 	f := func(c rune) bool {
 		return !unicode.IsLetter(c) && !unicode.IsNumber(c)
 	}
@@ -193,6 +199,9 @@ func ExampleIndex() {
 }
 
 func ExampleIndexFunc() {
+	/*
+		type rune = int32
+	*/
 	f := func(c rune) bool {
 		return unicode.Is(unicode.Han, c)
 	}
@@ -353,6 +362,9 @@ func ExampleToTitleSpecial() {
 }
 
 func ExampleMap() {
+	/*
+		type rune = int32
+	*/
 	rot13 := func(r rune) rune {
 		switch {
 		case r >= 'A' && r <= 'Z':
@@ -419,6 +431,12 @@ func ExampleTrimSuffix() {
 }
 
 func ExampleTrimFunc() {
+	/*
+		func TrimFunc(s string, f func(rune) bool) string
+		TrimFunc returns a slice of the string s with all leading and trailing Unicode code points c satisfying f(c) removed.
+
+		type rune = int32
+	*/
 	fmt.Print(strings.TrimFunc("¡¡¡Hello, Gophers!!!", func(r rune) bool {
 		return !unicode.IsLetter(r) && !unicode.IsNumber(r)
 	}))
@@ -426,11 +444,22 @@ func ExampleTrimFunc() {
 }
 
 func ExampleTrimLeft() {
+	/*
+		func TrimLeft(s, cutset string) string
+		TrimLeft returns a slice of the string s with all leading Unicode code points contained in cutset removed.
+		To remove a prefix, use TrimPrefix instead.
+	*/
 	fmt.Print(strings.TrimLeft("¡¡¡Hello, Gophers!!!", "!¡"))
 	// Output: Hello, Gophers!!!
 }
 
 func ExampleTrimLeftFunc() {
+	/*
+		func TrimLeftFunc(s string, f func(rune) bool) string
+		TrimLeftFunc returns a slice of the string s with all leading Unicode code points c satisfying f(c) removed.
+
+		type rune = int32
+	*/
 	fmt.Print(strings.TrimLeftFunc("¡¡¡Hello, Gophers!!!", func(r rune) bool {
 		return !unicode.IsLetter(r) && !unicode.IsNumber(r)
 	}))
@@ -438,11 +467,19 @@ func ExampleTrimLeftFunc() {
 }
 
 func ExampleTrimRight() {
+	// func TrimRight(s, cutset string) string
 	fmt.Print(strings.TrimRight("¡¡¡Hello, Gophers!!!", "!¡"))
 	// Output: ¡¡¡Hello, Gophers
 }
 
 func ExampleTrimRightFunc() {
+	/*
+		func TrimRightFunc(s string, f func(rune) bool) string
+		TrimRightFunc returns a slice of the string s with all trailing Unicode code points c satisfying f(c) removed.
+		TrimRightFunc 返回字符串 s 的一个切片，并删除所有满足 f(c) 的尾随 Unicode 代码点 c。
+
+		type rune = int32
+	*/
 	fmt.Print(strings.TrimRightFunc("¡¡¡Hello, Gophers!!!", func(r rune) bool {
 		return !unicode.IsLetter(r) && !unicode.IsNumber(r)
 	}))
@@ -450,6 +487,11 @@ func ExampleTrimRightFunc() {
 }
 
 func ExampleToValidUTF8() {
+	/*
+		func ToValidUTF8(s, replacement string) string
+		ToValidUTF8 returns a copy of the string s with each run of invalid UTF-8 byte sequences replaced by the replacement string, which may be empty.
+		ToValidUTF8 返回字符串 s 的副本，其中每次运行的无效 UTF-8 字节序列都被替换字符串替换，该替换字符串可能为空。
+	*/
 	fmt.Printf("%s\n", strings.ToValidUTF8("abc", "\uFFFD"))
 	fmt.Printf("%s\n", strings.ToValidUTF8("a\xffb\xC0\xAFc\xff", ""))
 	fmt.Printf("%s\n", strings.ToValidUTF8("\xed\xa0\x80", "abc"))
